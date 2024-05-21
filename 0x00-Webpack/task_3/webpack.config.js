@@ -1,27 +1,41 @@
-const path = require("path");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
+	mode: 'development',
+	devtool: 'inline-source-map',
 	entry: {
-		header: './modules/header/header.js',
-		body: './modules/body/body.js',
-		footer: './modules/footer/footer.js',
+		header: {
+			import: './modules/header/header.js',
+			dependOn: 'shared',
+		},
+		body: {
+			import: './modules/body/body.js',
+			dependOn: 'shared',
+		},
+		footer: {
+			import: './modules/footer/footer.js',
+			dependOn: 'shared',
+		},
 		shared: 'jquery',
 	},
 	output: {
-		filename: '[name].bundle.js',
 		path: path.resolve(__dirname, 'public'),
+		filename: '[name].bundle.js',
 	},
-	mode: 'development',
-	devtool: 'inline-source-map',
-	devServer: {
-		static: {
-			directory: path.join(__dirname, 'public'),
+	optimization: {
+		splitChunks: {
+			chunks: 'all',
 		},
-		compress: true,
-		port: 8564,
+	},
+	devServer: {
+		static: path.join(__dirname, 'public'),
 		open: true,
+		port: 8564,
+	},
+	performance: {
+		maxAssetSize: 512000,
 	},
 	module: {
 		rules: [
@@ -30,36 +44,19 @@ module.exports = {
 				use: ['style-loader', 'css-loader'],
 			},
 			{
-				test: /\.(png|jpe?g|gif)$/i,
-				type: 'asset/resource',
+				test: /\.jpg$/i,
 				use: [
-					{
-						loader: 'file-loader',
-						options: {
-							name: '[name].[ext]',
-							outputPath: 'images/',
-						},
-					},
+					'file-loader',
 					{
 						loader: 'image-webpack-loader',
 						options: {
-							disable: true, // Disable during development
+							bypassingOnDebug: true,
+							disable: true,
 						},
 					},
 				],
 			},
 		],
-	},
-	optimization: {
-		splitChunks: {
-			chunks: 'all',
-			minSize: 20000,
-			maxSize: 240000,
-		},
-	},
-	performance: {
-		maxAssetSize: 1000000,
-		maxEntrypointSize: 1000000,
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
