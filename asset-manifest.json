@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/alx-react/0x01-react_intro/task_4/dashboard/build/static/css/main.1d6b24a2.css",
-    "main.js": "/alx-react/0x01-react_intro/task_4/dashboard/build/static/js/main.1f0ac35f.js",
-    "static/js/453.59b8a61b.chunk.js": "/alx-react/0x01-react_intro/task_4/dashboard/build/static/js/453.59b8a61b.chunk.js",
-    "static/media/holberton-logo.jpg": "/alx-react/0x01-react_intro/task_4/dashboard/build/static/media/holberton-logo.24bab5d633e36ca8d17e.jpg",
-    "index.html": "/alx-react/0x01-react_intro/task_4/dashboard/build/index.html",
-    "static/media/close-icon.svg": "/alx-react/0x01-react_intro/task_4/dashboard/build/static/media/close-icon.a21c90eb6722297379f3338df4193570.svg",
-    "main.1d6b24a2.css.map": "/alx-react/0x01-react_intro/task_4/dashboard/build/static/css/main.1d6b24a2.css.map",
-    "main.1f0ac35f.js.map": "/alx-react/0x01-react_intro/task_4/dashboard/build/static/js/main.1f0ac35f.js.map",
-    "453.59b8a61b.chunk.js.map": "/alx-react/0x01-react_intro/task_4/dashboard/build/static/js/453.59b8a61b.chunk.js.map"
+    "main.css": "/alx-react/0x01-react_intro/task_4/dashboard/static/css/main.1d6b24a2.css",
+    "main.js": "/alx-react/0x01-react_intro/task_4/dashboard/static/js/main.7eb0dd30.js",
+    "static/js/453.59b8a61b.chunk.js": "/alx-react/0x01-react_intro/task_4/dashboard/static/js/453.59b8a61b.chunk.js",
+    "static/media/holberton-logo.jpg": "/alx-react/0x01-react_intro/task_4/dashboard/static/media/holberton-logo.24bab5d633e36ca8d17e.jpg",
+    "index.html": "/alx-react/0x01-react_intro/task_4/dashboard/index.html",
+    "static/media/close-icon.svg": "/alx-react/0x01-react_intro/task_4/dashboard/static/media/close-icon.a21c90eb6722297379f3338df4193570.svg",
+    "main.1d6b24a2.css.map": "/alx-react/0x01-react_intro/task_4/dashboard/static/css/main.1d6b24a2.css.map",
+    "main.7eb0dd30.js.map": "/alx-react/0x01-react_intro/task_4/dashboard/static/js/main.7eb0dd30.js.map",
+    "453.59b8a61b.chunk.js.map": "/alx-react/0x01-react_intro/task_4/dashboard/static/js/453.59b8a61b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1d6b24a2.css",
-    "static/js/main.1f0ac35f.js"
+    "static/js/main.7eb0dd30.js"
   ]
 }
