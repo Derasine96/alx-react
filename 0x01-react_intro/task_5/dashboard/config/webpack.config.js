@@ -8,19 +8,30 @@ module.exports = {
 	},
 	devServer: {
 		static: path.resolve(__dirname, 'dist'),
+		port: 8564,
+		open: true,
 		hot: true,
 	},
 	module: {
 		rules: [
 			{
 				test: /\.css$/,
-				use: ['style-loader', 'css-loader'],
+				exclude: /node_modules/,
+				use: {
+					loader: 'babel-loader',
+					options: {
+						presets: ['@babel/preset-env', '@babel/preset-react'],
+					},
+				},
 			},
 			{
 				test: /\.(png|svg|jpg|jpeg|gif)$/i,
 				type: 'asset/resource',
 			},
 		],
+	},
+	resolve: {
+		extensions: [ '*', '.js', '.jsx']
 	},
 	devtool: 'inline-source-map',
 };
