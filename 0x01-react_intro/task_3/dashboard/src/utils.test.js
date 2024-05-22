@@ -1,6 +1,6 @@
 import { getFullYear, getFooterCopy, getLatestNotification } from './utils';
 
-describe('Utility Functions', () => {
+describe('Utility Functions', () => cd ..{
   test('getFullYear returns the current year', () => {
     expect(getFullYear()).toBe(new Date().getFullYear());
   });
