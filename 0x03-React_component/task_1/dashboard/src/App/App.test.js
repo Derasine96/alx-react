@@ -1,70 +1,86 @@
+
 import React from 'react';
-import { shallow, mount } from 'enzyme';
 import App from './App';
-import Notifications from '../Notifications/Notifications';
-import Header from '../Header/Header';
 import Login from '../Login/Login';
+import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import Notifications from '../Notifications/Notifications';
 import CourseList from '../CourseList/CourseList';
+import { shallow } from 'enzyme';
 
-describe('<App />', () => {
-  let wrapper;
+describe('App tests', () => {
+	it('renders without crashing', () => {
+		const component = shallow(<App />);
 
-  beforeEach(() => {
-    wrapper = shallow(<App />);
-  });
+		expect(component).toBeDefined();
+	});
+	it('should render Notifications component', () => {
+		const component = shallow(<App />);
 
-  it('should contain the Notifications component', () => {
-    expect(wrapper.find(Notifications).exists()).toBe(true);
-  });
+		expect(component.containsMatchingElement(<Notifications />)).toEqual(true);
+	});
+	it('should render Header component', () => {
+		const component = shallow(<App />);
 
-  it('should contain the Header component', () => {
-    expect(wrapper.find(Header).exists()).toBe(true);
-  });
+		expect(component.contains(<Header />)).toBe(true);
+	});
+	it('should render Login Component', () => {
+		const component = shallow(<App />);
 
-  it('should contain the Login component', () => {
-    expect(wrapper.find(Login).exists()).toBe(true);
-  });
+		expect(component.contains(<Login />)).toBe(true);
+	});
+	it('should render Footer component', () => {
+		const component = shallow(<App />);
 
-  it('should contain the Footer component', () => {
-    expect(wrapper.find(Footer).exists()).toBe(true);
-  });
+		expect(component.contains(<Footer />)).toBe(true);
+	});
+	it('does not render courselist if logged out', () => {
+		const component = shallow(<App />);
 
-  it('does not render CourseList if logged out', () => {
-    wrapper.setProps({ isLoggedIn: false });
-    expect(wrapper.contains(<CourseList />)).toBe(false);
-  });
+		component.setProps({ isLogedIn: false });
 
-  it('renders CourseList if logged in', () => {
-    wrapper.setProps({ isLoggedIn: true });
-    expect(wrapper.contains(<CourseList />)).toBe(true);
-    expect(wrapper.contains(<Login />)).toBe(false);
-  });
+		expect(component.contains(<CourseList />)).toBe(false);
+	});
+	it('renders courselist if logged in', () => {
+		const component = shallow(<App isLoggedIn={true} />);
 
-  describe('logOut functionality', () => {
-    let originalAlert;
+		expect(component.containsMatchingElement(<CourseList />)).toEqual(false);
+		expect(component.contains(<Login />)).toBe(false);
+	});
+});
 
-    beforeAll(() => {
-      originalAlert = window.alert;
-      window.alert = jest.fn();
-    });
+describe('When ctrl + h is pressed', () => {
+	it('calls logOut function', () => {
+		const mocked = jest.fn();
+		const wrapper = mount(<App logOut={mocked} />);
+		const event = new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' });
+		document.dispatchEvent(event);
 
-    afterAll(() => {
-      window.alert = originalAlert;
-    });
+		expect(mocked).toHaveBeenCalledTimes(1);
+		wrapper.unmount();
+	});
 
-    it('calls logOut and displays alert when ctrl+h is pressed', () => {
-      const logOutMock = jest.fn();
-      const component = mount(<App isLoggedIn={true} logOut={logOutMock} />);
+	window.alert = jest.fn();
+	it('checks that alert function is called', () => {
+		const wrapper = mount(<App />);
+		const spy = jest.spyOn(window, 'alert');
+		const event = new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' });
+		document.dispatchEvent(event);
 
-      // Simulate ctrl+h key press
-      const event = new KeyboardEvent('keydown', { key: 'h', ctrlKey: true });
-      window.dispatchEvent(event);
+		expect(spy).toHaveBeenCalled();
+		spy.mockRestore();
+		wrapper.unmount();
+	});
 
-      expect(window.alert).toHaveBeenCalledWith('Logging you out');
-      expect(logOutMock).toHaveBeenCalled();
+	it('checks that the alert is "Logging you out"', () => {
+		const wrapper = mount(<App />);
+		const spy = jest.spyOn(window, 'alert');
+		const event = new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' });
+		document.dispatchEvent(event);
 
-      component.unmount();
-    });
-  });
+		expect(spy).toHaveBeenCalledWith('Logging you out');
+		jest.restoreAllMocks();
+		wrapper.unmount();
+	});
+	window.alert.mockClear();
 });
