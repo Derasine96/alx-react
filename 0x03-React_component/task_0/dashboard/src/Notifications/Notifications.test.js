@@ -6,27 +6,30 @@ import NotificationItem from './NotificationItem';
 
 describe('Notification tests', () => {
   it('renders Notification component without crashing', () => {
-    const component = shallow(<Notifications />);
+    const wrapper = shallow(<Notifications />);
 
-    expect(component).toBeDefined();
+    expect(wrapper).toBeDefined();
   });
 
   it('renders correct list items', () => {
-    const wrapper = shallow(<Notifications />);
+    const wrapper = shallow(<Notifications displayDrawer={true} />);
     expect(wrapper.find('ul').children()).toHaveLength(3);
+    wrapper.find('ul').forEach((node) => {
+      expect(node.equals(<NotificationItem />));
+    });
     expect(wrapper.find('ul').childAt(0).html()).toEqual(
-      '<li data="default">New course available</li>'
+      '<li data-notification-type="default">New course available</li>'
     );
     expect(wrapper.find('ul').childAt(1).html()).toEqual(
-      '<li data="urgent">New resume available</li>'
+      '<li data-notification-type="urgent">New resume available</li>'
     );
     expect(wrapper.find('ul').childAt(2).html()).toEqual(
-      `<li data=\"urgent\">${getLatestNotification()}</li>`
+      `<li data-urgent=\"true\">${getLatestNotification()}</li>`
     );
   });
 
   it('renders an unordered list', () => {
-    const wrapper = shallow(<Notifications />);
+    const wrapper = shallow(<Notifications displayDrawer={true} />);
     expect(wrapper.find('ul').children()).toHaveLength(3);
     wrapper.find('ul').forEach((node) => {
       expect(node.equals(<NotificationItem />));
@@ -34,48 +37,37 @@ describe('Notification tests', () => {
   });
 
   it('renders correct text', () => {
-    const component = shallow(<Notifications />);
+    const wrapper = shallow(<Notifications displayDrawer={true} />);
 
-    expect(component.find('p').prop('children')).toBe(
-      'Here is the list of notifications'
+    expect(wrapper.contains(<p>Here is the list of notifications</p>)).toBe(
+      true
     );
   });
 
-  it("displays menu item when displayDrawer is false", () => {
+  it('displays menu item when displayDrawer is false', () => {
     const wrapper = shallow(<Notifications displayDrawer={false} />);
 
-    expect(wrapper.find("div.menuItem").exists()).toBe(true);
-    expect(wrapper.find("div.menuItem").html()).toEqual('<div class="menuItem"><p>Your notifications</p></div>');
+    expect(wrapper.find('div.menuItem').exists()).toBe(true);
+    expect(wrapper.find('div.menuItem').html()).toEqual(
+      '<div class="menuItem"><p>Your notifications</p></div>'
+    );
   });
 
-  it("does not display notifications when displayDrawer is false", () => {
+  it('does not display notifications when displayDrawer is false', () => {
     const wrapper = shallow(<Notifications displayDrawer={false} />);
 
-    expect(wrapper.find("div.Notifications").exists()).toBe(false);
+    expect(wrapper.find('div.Notifications').exists()).toBe(false);
   });
 
-  it("does not display menuItem when displayDrawer is true", () => {
+  it('does not display menuItem when displayDrawer is true', () => {
     const wrapper = shallow(<Notifications displayDrawer={true} />);
 
-    expect(wrapper.find("div.menuItem").exists()).toBe(true);
+    expect(wrapper.find('div.menuItem').exists()).toBe(true);
   });
 
-  it("displays Notifications when displayDrawer is true", () => {
+  it('displays Notifications when displayDrawer is true', () => {
     const wrapper = shallow(<Notifications displayDrawer={true} />);
 
-    expect(wrapper.find("div.Notifications").exists()).toBe(true);
-  });
-
-  describe('markAsRead functionality', () => {
-    it('logs the correct message when markAsRead is called', () => {
-      const consoleSpy = jest.spyOn(console, 'log');
-      const wrapper = shallow(<Notifications displayDrawer={true} />);
-      const instance = wrapper.instance();
-
-      instance.markAsRead(1);
-
-      expect(consoleSpy).toHaveBeenCalledWith('Notification 1 has been marked as read');
-      consoleSpy.mockRestore();
-    });
+    expect(wrapper.find('div.Notifications').exists()).toBe(true);
   });
 });

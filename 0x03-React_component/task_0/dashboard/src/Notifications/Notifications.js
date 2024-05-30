@@ -6,15 +6,6 @@ import NotificationItem from "./NotificationItem";
 import PropTypes from "prop-types";
 
 class Notifications extends Component {
-  constructor(props) {
-    super(props);
-    this.markAsRead = this.markAsRead.bind(this);
-  }
-
-  markAsRead(id) {
-    console.log(`Notification ${id} has been marked as read`);
-  }
-
   render() {
     const { displayDrawer } = this.props;
 
@@ -45,9 +36,9 @@ class Notifications extends Component {
               </button>
               <p>Here is the list of notifications</p>
               <ul>
-                <NotificationItem type="default" value="New course available" markAsRead={this.markAsRead} id={1} />
-                <NotificationItem type="urgent" value="New resume available" markAsRead={this.markAsRead} id={2} />
-                <NotificationItem type="urgent" html={{ __html: getLatestNotification()}} markAsRead={this.markAsRead} id={3} />
+                <NotificationItem type='default' value='New course available' />
+                <NotificationItem type='urgent' value='New resume available' />
+                <NotificationItem type='urgent' html={getLatestNotification()} />
               </ul>
             </div>
           </div>
