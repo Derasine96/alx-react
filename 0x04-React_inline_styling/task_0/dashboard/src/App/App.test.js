@@ -2,12 +2,12 @@
  * @jest-environment jsdom
  */
 import React from 'react';
-import App from './App';
-import Login from '../Login/Login';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import Notifications from '../Notifications/Notifications';
-import CourseList from '../CourseList/CourseList';
+import App from '../../../../task_0/dashboard/src/App/App';
+import Login from '../../../../task_0/dashboard/src/Login/Login';
+import Header from '../../../../task_0/dashboard/src/Header/Header';
+import Footer from '../../../../task_0/dashboard/src/Footer/Footer';
+import Notifications from '../../../../task_0/dashboard/src/Notifications/Notifications';
+import CourseList from '../../../../task_0/dashboard/src/CourseList/CourseList';
 import { shallow, mount } from 'enzyme';
 
 describe('App tests', () => {
