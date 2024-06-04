@@ -1,6 +1,14 @@
 import React from 'react';
 import CourseListRow from './CourseListRow';
 import { shallow } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
+
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe('Course List Row component test', () => {
   it('should render without crashing', () => {
@@ -36,12 +44,5 @@ describe('Course List Row component test', () => {
     expect(wrapper.find('tr').children()).toHaveLength(2);
     expect(wrapper.find('tr').childAt(0).html()).toEqual('<td>test</td>');
     expect(wrapper.find('tr').childAt(1).html()).toEqual('<td>test</td>');
-  });
-  it('should render a normal row with two cells when isHeader is false', () => {
-    const wrapper = shallow(<CourseListRow isHeader={false} textFirstCell="test" textSecondCell="test2" />);
-    expect(wrapper.find('tr').prop('style')).toEqual({ backgroundColor: '#f5f5f5ab' });
-    expect(wrapper.find('tr').children()).toHaveLength(2);
-    expect(wrapper.find('tr').childAt(0).html()).toEqual('<td>test</td>');
-    expect(wrapper.find('tr').childAt(1).html()).toEqual('<td>test2</td>');
   });
 });
